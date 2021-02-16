@@ -128,6 +128,7 @@ __asm volatile ("nop");
 
 #include <Arduino.h>
 #include "Wire.h"
+#include "utility/PCA9536_PString.h"
 
 namespace Pca9536 {
 
@@ -145,7 +146,7 @@ namespace Pca9536 {
         REG_INPUT    = 0,      // default
         REG_OUTPUT   = 1,
         REG_POLARITY = 2,
-        REG_CONFIG_PCA   = 3 // added _PCA suffix to avoi clashing with mcp9800 lib
+        REG_CONFIG_PCA   = 3
     } reg_ptr_t;
 
     typedef enum:byte {
@@ -196,6 +197,8 @@ namespace Pca9536 {
             void setPin(pin_t pin, reg_ptr_t regPtr, byte newSetting);
             void initCall(reg_ptr_t regPtr);
             void endCall();
+            friend PCA9536_PString PCA9536ComStr(const PCA9536&);
+            friend PCA9536_PString PCA9536InfoStr(const PCA9536&);
     };
 }
 

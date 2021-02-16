@@ -43,7 +43,7 @@ class MCP9800
 		 * 
 		 * @return  true if chip was succesfully initialized
 		 */
-		bool init(bool initWire);
+		bool init();
 
 		/**
 		 * @brief   Toggles one shot mode on/off

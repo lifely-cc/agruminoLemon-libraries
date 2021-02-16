@@ -1,12 +1,12 @@
 /*==============================================================================================================*
  
-    @file     MCP3221InfoStr.h
+    @file     PCA9536InfoStr.h
     @author   Nadav Matalon
     @license  MIT (c) 2016 Nadav Matalon
 
-    MCP3221 Driver (12-BIT Single Channel ADC with I2C Interface)
-
-    Ver. 1.0.0 - First release (16.10.16)
+    A complemetary Device Information String Generator Debugging Function for the PCA9536 Library
+ 
+    Ver. 1.0.0 - First release (24.10.16)
 
  *===============================================================================================================*
     LICENSE
@@ -36,28 +36,24 @@
 __asm volatile ("nop");
 #endif
 
-#ifndef MCP3221InfoStr_h
-#define MCP3221InfoStr_h
+#ifndef PCA9536InfoStr_h
+#define PCA9536InfoStr_h
 
 #include <avr/pgmspace.h>
-#include "utility/MCP3221ComStr.h"
+#include "utility/PCA9536ComStr.h"
 
-namespace Mcp3221 {
+namespace Pca9536 {
 
     const int  INFO_BUFFER_SIZE = 60;
-    const byte NUM_OF_INFO_STR  = 12;
+    const byte NUM_OF_INFO_STR  =  8;
 
-    const char infoStr0[]  PROGMEM = "\nMCP3221 DEVICE INFORMATION";
+    const char infoStr0[]  PROGMEM = "\nPCA9536 DEVICE INFORMATION";
     const char infoStr1[]  PROGMEM = "\n--------------------------";
-    const char infoStr2[]  PROGMEM = "\nI2C ADDRESS:\t   %d (%#X)";
-    const char infoStr3[]  PROGMEM = "\nI2C COM STATUS:\t   %sCONNECTED";
-    const char infoStr4[]  PROGMEM = "\nVOLTAGE REFERENCE: %dmV";
-    const char infoStr5[]  PROGMEM = "\nSMOOTHING METHOD:  %s";
-    const char infoStr6[]  PROGMEM = "\nVOLTAGE INPUT:\t   %dV";
-    const char infoStr7[]  PROGMEM = "\nVD RESISTOR 1:\t   %dR";
-    const char infoStr8[]  PROGMEM = "\nVD RESISTOR 2:\t   %dR";
-    const char infoStr9[]  PROGMEM = "\nALPHA:\t\t   %d";
-    const char infoStr10[] PROGMEM = "\nSAMPLES BUFFER:\t   %d SAMPLES\n";
+    const char infoStr2[]  PROGMEM = "\nI2C ADDRESS:\t %d (%#X)";
+    const char infoStr3[]  PROGMEM = "\nI2C COM STATUS:\t %sCONNECTED";
+    const char infoStr4[]  PROGMEM = "\nPIN\tMODE\tSTATE\tPOLARITY";
+    const char infoStr5[]  PROGMEM = "\n---\t----\t-----\t--------";
+    const char infoStr6[]  PROGMEM = "\nIO%d\t%sPUT\t%s\t%sINVERTED";
     const char errStr[]    PROGMEM = "\nI2C ERROR:\t ";
 
     const char * const infoStrs[NUM_OF_INFO_STR] PROGMEM = {
@@ -68,10 +64,6 @@ namespace Mcp3221 {
         infoStr4,
         infoStr5,
         infoStr6,
-        infoStr7,
-        infoStr8,
-        infoStr9,
-        infoStr10,
         errStr
     };
 
@@ -79,41 +71,43 @@ namespace Mcp3221 {
     GENERATE DEVICE INFORMATION STRING (PRINTABLE FORMAT)
  *==============================================================================================================*/
 
-    MCP3221_PString MCP3221InfoStr(const MCP3221& devParams) {
+    PCA9536_PString PCA9536InfoStr(const PCA9536& devParams) {
         char * ptr;
-        char strBuffer[360];    // 338
+        char strBuffer[338];
+        int  devAddr = DEV_ADDR;
+        PCA9536 pca9536;
+        pca9536.getMode(IO0);
+        byte comErrCode = pca9536.getComResult();
+        PCA9536_PString resultStr(strBuffer, sizeof(strBuffer));
         char devInfoBuffer[INFO_BUFFER_SIZE];
-        MCP3221_PString resultStr(strBuffer, sizeof(strBuffer));
-        MCP3221 mcp3221(devParams._devAddr);
-        byte comErrCode = mcp3221.ping();
-        unsigned int res1 = mcp3221.getRes1();
-        unsigned int res2 = mcp3221.getRes2();
-        
         for (byte i=0; i<4; i++) {
             ptr = (char *) pgm_read_word(&infoStrs[i]);
             if (i < 2)   snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr);
-            if (i == 2)  snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, devParams._devAddr, devParams._devAddr);
+            if (i == 2)  snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, devAddr, devAddr);
             if (i == 3)  snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, (comErrCode ? "NOT " : ""));
             resultStr += devInfoBuffer;
         }
         if (!comErrCode) {
+            pin_t pins[4] = { IO0, IO1, IO2, IO3 };
             for (byte i=4; i<(NUM_OF_INFO_STR - 1); i++) {
                 ptr = (char *) pgm_read_word(&infoStrs[i]);
-                if (i == 4)  snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, devParams._vRef);
-                if (i == 5)  switch (devParams._smoothing) {
-                                case (NO_SMOOTHING): snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, "NO SMOOTHING"); break;
-                                case (ROLLING_AVG):  snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, "ROLLING-AVAREGE"); break;
-                                case (EMAVG):        snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, "EMAVG"); break;
-                            }
-                if (i == 6)  snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, (devParams._voltageInput ? 12 : 5));
-                if (i == 7)  snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, devParams._res1);
-                if (i == 8)  snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, devParams._res2);
-                if (i == 9)  snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, devParams._alpha);
-                if (i == 10) snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, devParams._numSamples);
-                if (i != 11) resultStr += devInfoBuffer;
+                if (i < 6)  {
+                    snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr);
+                    resultStr += devInfoBuffer;
+                }
+                if (i == 6)  {
+                    for (byte j=0; j<4; j++) {
+                        byte mode = pca9536.getMode(pins[j]);
+                        byte state = pca9536.getState(pins[j]);
+                        byte polarity = pca9536.getPolarity(pins[j]);
+                        snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, ptr, j, (mode ? "IN" : "OUT"), (state ? "HIGH" : "LOW"), (polarity ? "" : "NON-"));
+                        resultStr += devInfoBuffer;
+                    }
+                    resultStr += "\n";
+                }
             }
         } else {
-            snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, (char *) pgm_read_word(&infoStrs[11]));
+            snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, (char *) pgm_read_word(&infoStrs[7]));
             resultStr += devInfoBuffer;
             snprintf_P(devInfoBuffer, INFO_BUFFER_SIZE, (char *) pgm_read_word(&comCodes[comErrCode]));
             resultStr += devInfoBuffer;
@@ -123,6 +117,6 @@ namespace Mcp3221 {
     }
 }
 
-using namespace Mcp3221;
+using namespace Pca9536;
 
 #endif

@@ -1,15 +1,11 @@
 #include "MCP9800.h"
 
-bool MCP9800::init(bool initWire)
+bool MCP9800::init()
 {
 #ifdef ARDUINO
-	if (initWire) {
-		Wire.begin();
-	}
+	Wire.begin();
 #else
-	if (initWire) {
-		i2c_init();
-	}
+	i2c_init();
 #endif
 	uint8_t config;
 	read(REG_CONFIG, &config, 1);

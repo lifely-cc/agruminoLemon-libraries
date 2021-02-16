@@ -1,12 +1,13 @@
 /*==============================================================================================================*
 
-     @file     MCP3221ComStr.h
-     @author   Nadav Matalon
-     @license  MIT (c) 2016 Nadav Matalon
-     
-     MCP3221 Driver (12-BIT Single Channel ADC with I2C Interface)
-     
-     Ver. 1.0.0 - First release (16.10.16)
+    @file     PCA9536ComStr.h
+    @author   Nadav Matalon
+    @license  MIT (c) 2016 Nadav Matalon
+ 
+    A complemetary I2C Communications Result String Generator for the PCA9536 Library
+ 
+    Ver. 1.0.0 - First release (24.10.16)
+
 
 *===============================================================================================================*
     LICENSE
@@ -36,12 +37,12 @@
 __asm volatile ("nop");
 #endif
 
-#ifndef MCP3221ComStr_h
-#define MCP3221ComStr_h
+#ifndef PCA9536ComStr_h
+#define PCA9536ComStr_h
 
 #include <avr/pgmspace.h>
 
-namespace Mcp3221 {
+namespace Pca9536 {
 
     const byte COM_BUFFER_SIZE  = 60;
     const int  NUM_OF_COM_CODES =  8;
@@ -70,17 +71,16 @@ namespace Mcp3221 {
     GET I2C COMMUNICATIONS RESULT MESSAGE (PRINTABLE FORMAT)
  *==============================================================================================================*/
 
-    MCP3221_PString MCP3221ComStr(const MCP3221& devParams) {
+    PCA9536_PString PCA9536ComStr(const PCA9536& devParams) {
         char devComBuffer[COM_BUFFER_SIZE];
-        MCP3221_PString comStr(devComBuffer, COM_BUFFER_SIZE);
+        PCA9536_PString comStr(devComBuffer, COM_BUFFER_SIZE);
         char comCodeResult = devParams._comBuffer;
         char * ptr = (char *) pgm_read_word(&comCodes[comCodeResult]);
         snprintf_P(devComBuffer, COM_BUFFER_SIZE, ptr, comCodeResult);
         return comStr;
     }
-
 }
 
-using namespace Mcp3221;
+using namespace Pca9536;
 
 #endif

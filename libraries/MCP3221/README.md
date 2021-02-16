@@ -1,11 +1,11 @@
 
 # MCP3221 DRIVER
 
-[![Platform Badge](https://img.shields.io/badge/platform-Arduino-orange.svg)](https://www.arduino.cc/)
+[![Platform Badge](https://img.shields.io/badge/platform-AVR-orange.svg)](http://www.atmel.com/products/microcontrollers/avr/)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![SemVer](https://img.shields.io/badge/SemVer-1.0.0-brightgreen.svg)](http://semver.org/)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![SemVer](https://img.shields.io/badge/eagle-pcb-yellow.svg)](https://cadsoft.io/)
+[![SemVer](https://img.shields.io/badge/pcb-Eagle-yellow.svg)](https://cadsoft.io/)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -13,7 +13,9 @@ The MCP3221 is a 12-Bit Single-Channel ADC with hardware I2C interface.
 
 This library contains a complete driver for the MCP3221 exposing all its available features. The library also contains configurable functions for obtaining either data or voltage reading from the device, as well as applying smoothing methods (Rolling-Average / Exponential-Moving-Average) to the said data/voltage readings. In addition, the library offers a built-in mechanism for calculating input from either 5V or 12V sources (the latter requiring a hardware voltage divider as the AIN pin of the MCP3221 cannot take more than 5.5V).
 
-[MCP3221 DATASHEET](http://ww1.microchip.com/downloads/en/DeviceDoc/21732D.pdf)
+<img src="extras/images/mcp3221_pinout.png" alt="MCP3221 PINOUT" width="350" height="240">
+
+Source: [MCP3221 DATASHEET](http://ww1.microchip.com/downloads/en/DeviceDoc/21732D.pdf)
 
 ## Repository Contents
 
@@ -27,8 +29,10 @@ This library contains a complete driver for the MCP3221 exposing all its availab
 - **/examples**   
   - **/MCP3221_Test**  
     - **MCP3221_Test.ino** - A basic sketch for testing whether the MCP3221 is hooked-up and operating correctly.  
-  - **/MCP3221_Usage**  
-    - **MCP3221_Usage.ino** - A much more extensive sketch offering a complete usage illustration, as well as a rubust testing mechanism.  
+  - **/MCP3221_Basic_Usage**  
+    - **MCP3221_Baisc_Usage.ino** - A minimal sketch for getting a continuous voltage reading from the MCP3221.  
+  - **/MCP3221_Full_Usage**  
+    - **MCP3221_Full_Usage.ino** - A more extensive sketch offering a complete usage illustration, as well as a rubust testing mechanism.  
   - **/MCP3221_Info**  
     - **MCP3221_Info.ino** - A short sketch showing how to generate a Printable Device Information String with the MCP3221's current settings.  
   - **/MCP3221_I2C_Status**
@@ -38,6 +42,8 @@ This library contains a complete driver for the MCP3221 exposing all its availab
   - **/eagle**
     - **MCP3221.sch** - Schematic file for the MCP3221 breakout board.
     - **MCP3221.brd** - Board layout for the MCP3221 breakout board.
+  - **/images**
+    - **mcp3221_pinout.png** - Pinout image of the MCP3221.
 - **keywords.txt** - Keywords for this library which will be highlighted in sketches within the Arduino IDE. 
 - **library.properties** - General library properties for the Arduino's IDE (>1.5) Library Package Manager.
 - **README.md** - The readme file for this library.

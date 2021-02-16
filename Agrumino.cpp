@@ -9,7 +9,7 @@
 #include "Agrumino.h"
 #include <Wire.h>
 #include "libraries/MCP9800/MCP9800.cpp"
-#include "libraries/PCA9536_FIX/PCA9536_FIX.cpp" // PCA9536.h lib has been modified (REG_CONFIG renamed to REG_CONFIG_PCA) to avoid name clashing with mcp9800.h
+#include "libraries/PCA9536/PCA9536.cpp" // PCA9536.h lib has been modified (REG_CONFIG renamed to REG_CONFIG_PCA) to avoid name clashing with mcp9800.h
 #include "libraries/MCP3221/MCP3221.cpp"
 
 // PINOUT Agrumino        Implemented
