@@ -1,0 +1,50 @@
+#######################################
+# Syntax Coloring Map For Agrumino Library
+# Author: Paolo Paolucci
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Agrumino	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setup	KEYWORD2
+deepSleepSec	KEYWORD2
+checkBattery	KEYWORD2
+turnWateringOn	KEYWORD2
+turnWateringOff	KEYWORD2
+isButtonPressed	KEYWORD2
+isAttachedToUSB	KEYWORD2
+isBatteryCharging	KEYWORD2
+turnBoardOn	KEYWORD2
+turnBoardOff	KEYWORD2
+readTempC	KEYWORD2
+readTempF	KEYWORD2
+turnLedOn	KEYWORD2
+turnLedOff	KEYWORD2
+readSoil	KEYWORD2
+readSoilRaw	KEYWORD2
+calibrateSoilWater	KEYWORD2
+calibrateSoilAir	KEYWORD2
+readLux	KEYWORD2
+readBatteryVoltage	KEYWORD2
+readBatteryLevel	KEYWORD2
+setGPIOMode	KEYWORD2
+getGPIOMode	KEYWORD2
+readGPIO	KEYWORD2
+writeGPIO	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+GPIO_1	LITERAL1
+GPIO_2	LITERAL1
+LIV_1	LITERAL1
+GPIO_OUTPUT	LITERAL1
+GPIO_INPUT	LITERAL1
