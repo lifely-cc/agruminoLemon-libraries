@@ -5,9 +5,11 @@
   Tools->Erase Flash->All Flash Contents
 
   Created June 2020 by:
-  Massimo Pennazio massimo.pennazio@abinsula.com
-  Martina Mascia martina.mascia@abinsula.com
-  Ricardo Medda ricardo.medda@abinsula.com
+  Giuseppe Broccia giuseppe.broccia@lifely.cc
+  Gabriele Foddis gabriele.foddis@lifely.cc  
+  Modified May 2021 by:
+  Giuseppe Broccia giuseppe.broccia@lifely.cc
+  Gabriele Foddis gabriele.foddis@lifely.cc
 
   Program to test Agrumino board and FLASH Memory of ESP8266 Module.
   Select option following the guide on serial monitor.

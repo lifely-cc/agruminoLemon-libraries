@@ -5,10 +5,10 @@
   Flash->All Flash Contents
 
   Created by giuseppe.broccia@lifely.cc on October 2017.
-  Modified June 2020 by:
-  Massimo Pennazio massimo.pennazio@abinsula.com
-  Martina Mascia martina.mascia@abinsula.com
-  Ricardo Medda ricardo.medda@abinsula.com
+  Modified May 2021 by:
+  Giuseppe Broccia giuseppe.broccia@lifely.cc
+  Gabriele Foddis gabriele.foddis@lifely.cc
+
 
   This sketch reads every 1h all values from the Arduino board and update them
   to the Dweet.io service every 4h. It integrates FLASH management to collect 

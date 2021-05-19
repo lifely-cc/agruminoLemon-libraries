@@ -5,10 +5,9 @@
   Flash->All Flash Contents
 
   Created by Paolo Paolucci on May 2018.
-  Modified June 2020 by:
-  Massimo Pennazio massimo.pennazio@abinsula.com
-  Martina Mascia martina.mascia@abinsula.com
-  Ricardo Medda ricardo.medda@abinsula.com
+  Modified May 2021 by:
+  Giuseppe Broccia giuseppe.broccia@lifely.cc
+  Gabriele Foddis gabriele.foddis@lifely.cc
 
   This sketch Sketch save sensor data of Agrumino board on FLASH
   and after 4 cycles transmits data to Thing Speak
