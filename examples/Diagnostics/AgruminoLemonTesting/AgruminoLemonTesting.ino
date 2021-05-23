@@ -1,8 +1,9 @@
 /*AgruminoLemonTesting.ino - 
   Created by gabriele.foddis@lifely.cc         05/2021
   With this sketch and the Fritizing img you can try if your device work properly. 
-  Testing: GPIO connector, I2c connector, Pump Connector, Liv connector, WiFi Connection, and also Lux, temperature and Soil Moisture sensors 
-  Look at the images in the library or at the link https://github.com/lifely-cc/agruminoLemonTesting*/
+  Testing: built-in led, GPIO connector, I2c connector, Pump Connector, Liv connector, WiFi Connection, and also... Lux, temperature and Soil Moisture sensors. 
+  Look at the images in the folder library or in this link https://github.com/lifely-cc/agruminoLemonTesting 
+  ******WARNING******, for this sketch need a internet connection */
 
 #include <Arduino.h>
 #include <Agrumino.h>
@@ -38,7 +39,7 @@ void wifiSetup() {
 
   if (wifiCount >= CONNECTION_ATTEMPS)
   {
-    Serial.println("Failed to connect,...sleep....");
+    Serial.println("Failed to connect,....Please check your internet connection...I'm rebooting now...");
     ESP.restart();
   }
   else if (WiFi.status() == WL_CONNECTED) {
@@ -158,6 +159,7 @@ void setup()
 {
   Serial.begin(SERIAL_PORT);
   agrumino.setup();
+  agrumino.turnBoardOn();
   u8g2.begin();
   wifiSetup();
   delay(500);
@@ -171,7 +173,7 @@ void loop(void)
     drawlogo();
   }
   long int agruminoChipId = ESP.getChipId();
-  Serial.println("ChipId Numebr is : " + String(agruminoChipId));
+  Serial.println("My ChipId is : " + String(agruminoChipId));
   countLogo++;
   writeTestInProgress();
   blinkLed(); 
@@ -181,4 +183,8 @@ void loop(void)
   u8g2.clearDisplay();
   writeDataSensors();
   //testLevel(); //View status only from serial monitor
+  Serial.println("Restart.....");
+  delay(3000);
+  u8g2.clearDisplay();
+  ESP.restart();
 }

@@ -1,7 +1,11 @@
 /*
   Agrumino.cpp - Library for Agrumino Lemon board - Version 0.2 for Board R3
   Created by giuseppe.broccia@lifely.cc on October 2017.
-  Updated on February 2020 by gabriele.foddis@lifely.cc
+  
+  Updated on May 2021 for Agrumino Lemon rev 4 by:  
+  giuseppe.broccia@lifely.cc
+  gabriele.foddis@lifely.cc
+  
 
   Future developements:
     - Watering with time duration
