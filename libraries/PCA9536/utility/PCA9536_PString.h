@@ -3,9 +3,9 @@ PCA9536_PString.h - Lightweight printable string class
 Original Code by: Mikal Hart (http://arduiniana.org/libraries/PString/)
 */
 
-#if 1
-__asm volatile ("nop");
-#endif
+//#if 1
+//__asm volatile ("nop");
+//#endif
 
 #ifndef PCA9536_PString_h
 #define PCA9536_PString_h

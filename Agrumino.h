@@ -2,7 +2,7 @@
   Agrumino.cpp - Library for Agrumino Lemon board - Version 0.2 for Board R3
   Created by giuseppe.broccia@lifely.cc on October 2017.
   
-  Updated on May 2021 for Agrumino Lemon rev 4 by:  
+  Updated on March 2023 for Lifely Agrumino Lemon rev4 and rev5 by:  
   giuseppe.broccia@lifely.cc
   gabriele.foddis@lifely.cc
   

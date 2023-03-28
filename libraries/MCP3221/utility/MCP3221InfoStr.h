@@ -32,9 +32,9 @@
  
  *==============================================================================================================*/
 
-#if 1
-__asm volatile ("nop");
-#endif
+//#if 1
+//__asm volatile ("nop");
+//#endif
 
 #ifndef MCP3221InfoStr_h
 #define MCP3221InfoStr_h

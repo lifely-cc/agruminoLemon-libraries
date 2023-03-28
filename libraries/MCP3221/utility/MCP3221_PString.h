@@ -3,9 +3,9 @@ MCP3221_PString.h - Lightweight printable string class
 Original Code by: Mikal Hart (http://arduiniana.org/libraries/PString/)
 */
 
-#if 1
-__asm volatile ("nop");
-#endif
+//#if 1
+//__asm volatile ("nop");
+//#endif
 
 #ifndef MCP3221PString_h
 #define MCP3221_PString_h

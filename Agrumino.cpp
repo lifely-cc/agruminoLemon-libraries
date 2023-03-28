@@ -2,7 +2,7 @@
   Agrumino.cpp - Library for Agrumino Lemon board - Version 0.2 for Board R3
   Created by giuseppe.broccia@lifely.cc on October 2017.
   
-  Updated on May 2021 for Agrumino Lemon rev 4 by:  
+  Updated on March 2023 for Lifely Agrumino Lemon rev4 and rev5 by:
   giuseppe.broccia@lifely.cc
   gabriele.foddis@lifely.cc
   
@@ -30,6 +30,7 @@
 #define I2C_ADDR_LUX       0x44 // [X] 
 #define I2C_ADDR_TEMP      0x48 // [X] 
 #define I2C_ADDR_GPIO_EXP  0x41 // [-] BOTTOM LED OK, TODO: GPIO 2-3-4 
+#define DELAY_ADDR_LUX      110 // delay for new Lux sensor
 
 ////////////
 // CONFIG //
@@ -244,6 +245,7 @@ unsigned int Agrumino::readGPIO(gpio_pin pin) {
     return pcaGpioExpander.getState((pin_t) pin) == IO_LOW ? LOW : HIGH; 
   } else {
     Serial.println("Error! gpio pin [" + String(pin) + "] is not set as OUTPUT, unable to write");
+	return -1;
   }
 }
 
@@ -311,6 +313,7 @@ void Agrumino::initSoilSensor() {
 
 void Agrumino::initLuxSensor() {
   // Logic for Light-to-Digital Output Sensor ISL29003
+  Serial.println("Lux Ver. " + String(DELAY_ADDR_LUX));
   Serial.print("initLuxSensor    → ");
   Wire.beginTransmission(I2C_ADDR_LUX);
   byte result = Wire.endTransmission();
@@ -365,7 +368,7 @@ void Agrumino::initBoard() {
   initSoilSensor(); // First reading after ~30ms
   initTempSensor(); // First reading after ~?ms
   initGPIOExpander(); // First operation after ~?ms
-  delay(90); // Ensure that the ICs are init properly
+  delay(DELAY_ADDR_LUX); // Ensure that the ICs are init properly (new lux sensor work in RV4 and RV5)
 }
 
 void Agrumino::setupGpioModes() {
@@ -383,7 +386,7 @@ void Agrumino::printLogo() {
   Serial.println("\\_|    /_\\  __ _ _ _ _  _ _ __ (_)_ _  ___   |");
   Serial.println("  |   / _ \\/ _` | '_| || | '  \\| | ' \\/ _ \\  |");
   Serial.println("  |  /_/ \\_\\__, |_|  \\_,_|_|_|_|_|_||_\\___/  |");
-  Serial.println("  |        |___/               By Lifely.cc  |");
+  Serial.println("  |        |___/         Lemon By Lifely.cc  |");
   Serial.println("  |  ________________________________________|_");
   Serial.println("  \\_/_________________________________________/");
   Serial.println("");
