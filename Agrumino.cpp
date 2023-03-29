@@ -245,7 +245,7 @@ unsigned int Agrumino::readGPIO(gpio_pin pin) {
     return pcaGpioExpander.getState((pin_t) pin) == IO_LOW ? LOW : HIGH; 
   } else {
     Serial.println("Error! gpio pin [" + String(pin) + "] is not set as OUTPUT, unable to write");
-	return -1;
+	return 0;
   }
 }
 
